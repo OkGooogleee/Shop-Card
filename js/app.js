@@ -25,6 +25,9 @@
 
   var cardData = {};
 
+  var cardList = document.getElementById('card-list')
+  var totalAmount = document.getElementById("total-amount")
+
   var setMenu = function () {
 
     for (var sku in menuData) {
@@ -76,16 +79,32 @@
     setCard()
   }
 
-  var setCard = function () {
-    // var total = 0
+  var reduceCardCount = function (e) {
+    var button = e.target
+    var sku = button.getAttribute('data-sku')
 
-    document.getElementById("card-list").innerHTML = ""
+    if (sku in cardData) {
+      cardData[sku] -= 1
 
-    for (var sku in cardData) {
-      var cardItem = createCardItem(sku)
-
-      document.getElementById('card-list').appendChild(cardItem)
+      if (cardData[sku] < 1) delete cardData[sku]
     }
+    setCard()
+  }
+
+  var setCard = function () {
+    cardList.innerHTML = ""
+
+    var total = 0
+    for (var sku in cardData) {
+      var price = menuData[sku].price
+      var qty = cardData[sku]
+      total += qty * price
+
+      var cardItem = createCardItem(sku)
+      cardList.appendChild(cardItem)
+    }
+
+    totalAmount.innerText = total
   }
 
   var createCardItem = function (sku) {
@@ -107,6 +126,7 @@
     removeButton.className = "remove-button"
     removeButton.innerText = "-"
     removeButton.setAttribute("data-sku", sku)
+    removeButton.onclick = reduceCardCount
 
     cardItemDiv.appendChild(itemText)
     cardItemDiv.appendChild(itemTotal)
@@ -115,7 +135,5 @@
     return cardItemDiv
 
   }
-
-
   setMenu()
 })();
