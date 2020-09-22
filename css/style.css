@@ -46,7 +46,7 @@
   }
 
   .container {
-      max-width: 1140px;
+      width: 100%;
       margin-right: auto;
       margin-left: auto;
       padding-left: var(--s1);
@@ -66,7 +66,7 @@
   #app-holder {
       display: flex;
       justify-content: center;
-      height: 100vh;
+      height: 80vh;
       flex-direction: column;
   }
 
@@ -160,11 +160,11 @@
   }
 
   /* can be removed because we then append to cart list */
-  #card-area>.cart-item {
+  #card-area>.card-item {
       margin-top: var(--s-2);
   }
 
   /* since we introduced cart-list */
-  #card-list>.cart-item {
+  #card-list>.card-item {
       margin-top: var(--s-2);
   }
